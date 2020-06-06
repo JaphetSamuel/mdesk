@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+
+{% block topbar %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="jumbotron">
+            <div class="d-flex">
+                <div class="w-75"></div>
+                <div class="w-25">
+                    <small>Fait à Abidjan le {{ now }}</small>
+                </div>
+            </div>
+            <div class="mt-4 w-75">
+                <p class="d-flex">
+                    <span class="w-25">Nom:</span>
+                    <span class="w-75">{{ object.nom|title }}</span>
+                </p>
+                <p class="d-flex">
+                    <span class="w-25">Prénoms:</span>
+                    <span class="w-75">{{ object.prenoms|title }}</span>
+                </p>
+                <p class="d-flex">
+                    <span class="w-25">Contact:</span>
+                    <span class="w-75">{{ object.contact|title }}</span>
+                </p>
+            </div>
+            <div class="mt-4">
+                <h4 class="p-1 text-center">Commandes</h4>
+                <table class="table">
+                    <tr>
+                        <th>Désignation</th>
+                        <th>Quantité</th>
+                        <th>Prix uinitaire</th>
+                        <th>Total + livraison</th>
+                        <th>Livré</th>
+                    </tr>
+                    {% for commande in object.commande_set.all %}
+                    <tr>
+                        <td>{{ commande.produit }}</td>
+                        <td>{{ commande.quantite }}</td>
+                        <td>{{ commande.produit.prix }}</td>
+                        <td>{{ commande.total_plus_livraison }}</td>
+                        <td>{% if commande.livre %}
+                            <span class="fa fa-check-circle green-ic"></span>
+                        {% else %}
+                            <span class="fa fa-circle red-ic"></span>
+                        {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="3">Total</th>
+                        <th>{{ object.total_plus_livraison }}</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="mt-4">
+                <h4 class="p-1 text-center">Avances</h4>
+                <table class="table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Montant</th>
+                    {% for avance in object.avance_set.all %}
+                    <tr>
+                        <td>{{ avance.date }}</td>
+                        <td>{{ avance.montant }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="1">Total</th>
+                        <th>{{ object.avance }}</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="mt-4">
+                <h4 class="p-1 text-center">Etat du compte</h4>
+                <table class="table">
+                    <tr class="grey">
+                        <th>Solde</th>
+                        <th>{{ object.solde }}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 5px; right: 5px">
+        <button onclick="print()" class="btn rounded-pill btn-blue">
+            <span class="fa fa-print fa-2x"></span>
+        </button>
+    </div>
+{% endblock %}

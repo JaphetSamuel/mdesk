@@ -1,0 +1,55 @@
+{% extends 'caisse/home.html' %}
+
+
+{% block home_nav %}
+{% include 'caisse/_nav.html' %}
+{% endblock %}
+
+{% block home_content %}
+<div class="jumbotron py-2 rounded">
+
+    <div class="d-flex align-items-center">
+        <div class="w-75">
+            <form action="" class="form-inline" method="get">
+                <select name="categorie" id="">
+                    <option value="t" active>Toutes</option>
+                    {% for categorie in categorie_list %}
+                        <option value="{{ categorie.pk }}">{{ categorie }}</option>
+                    {% endfor %}
+
+                </select>
+                &nbsp;&nbsp;
+                <div class="md-form md-outline">
+                    <label for="">Nom</label>
+                    <input type="text" name="nom" class="form-control">
+                </div>
+                <div>
+                    <button class="btn btn-link" type="submit"> <span class="fa fa-search"></span></button>
+                </div>
+            </form>
+        </div>
+        <div class="w-25 text-right">
+            <a href="{% url 'caisse:produit_create' %}" class="btn d-inline-block btn-blue btn-sm">Ajouter</a>
+        </div>
+    </div>
+
+    <table class="mt-2 table">
+        <tr>
+            <th>Nom</th>
+            <th>Categorie</th>
+            <th>Prix</th>
+        </tr>
+        {% for client in object_list %}
+        <tr>
+            <td><a class="blue-text" href="">{{ client.nom }}</a> </td>
+            <td>{{ client.categorie }}</td>
+            <td>{{ client.prix }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td class="font-weight-bold" colspan="6">Total</td>
+            <td class="font-weight-bold">{{ object_list.count }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

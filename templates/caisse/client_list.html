@@ -1,0 +1,59 @@
+{% extends 'caisse/home.html' %}
+
+
+{% block home_nav %}
+{% include 'caisse/_nav.html' %}
+{% endblock %}
+
+{% block home_content %}
+<div class="jumbotron py-2 rounded">
+
+    <div class="d-flex align-items-center">
+        <div class="w-75">
+            <form action="" class="form-inline" method="get">
+                <div class="md-form md-outline">
+                    <label for="">Contact</label>
+                    <input type="text" name="contact" class="form-control">
+                </div>&nbsp;&nbsp;
+                <div class="md-form md-outline">
+                    <label for="">Nom</label>
+                    <input type="text" name="nom" class="form-control">
+                </div>
+                <div>
+                    <button class="btn btn-link" type="submit"> <span class="fa fa-search"></span></button>
+                </div>
+            </form>
+        </div>
+        <div class="w-25 text-right">
+            <a href="{% url 'caisse:client_create' %}" class="btn d-inline-block btn-blue btn-sm">Ajouter</a>
+        </div>
+    </div>
+
+    <table class="mt-2 table">
+        <tr>
+            <th>Nom</th>
+            <th>Prénoms</th>
+            <th>Contact</th>
+            <th>Total + Livraison</th>
+            <th>Avance</th>
+            <th>Due</th>
+            <th>A livrer ?</th>
+        </tr>
+        {% for client in object_list %}
+        <tr>
+            <td><a class="blue-text" href="{% url 'caisse:client_update' pk=client.pk %}">{{ client.nom }}</a> </td>
+            <td>{{ client.prenoms }}</td>
+            <td>{{ client.contact }}</td>
+            <td>{{ client.total_plus_livraison }}</td>
+            <td>{{ client.avance }}</td>
+            <td>{{ client.doit }}</td>
+            <td>{{ client.attente_de_livraison|yesno }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td class="font-weight-bold" colspan="6">Total</td>
+            <td class="font-weight-bold">{{ object_list.count }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

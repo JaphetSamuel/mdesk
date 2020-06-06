@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eburnie M...l</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+    <style>
+        body{
+            background-color: #f5faff;
+            font-family: Bahnschrift;
+        }
+        .nav-option:hover, .nav-option active{
+            box-shadow: 1px 0px 5px 1px #aaa;
+        }
+        .main-option:hover{
+            color: white;
+            background-color: blue;
+        }
+        .message-error{
+            background-color: rgba(255, 26, 55, 0.83);
+            color: white;
+        }
+        .message-success{
+            background-color: rgba(40, 187, 6, 0.83);
+            color: white;
+        }
+        .message-info{
+            background-color: rgba(46, 121, 255, 0.83);
+            color: white;
+        }
+    </style>
+    {% block style %}
+
+    {% endblock %}
+</head>
+<body>
+
+    {% block topbar %}
+        {% if request.user.is_authenticated %}
+            {% include 'parts/topbar.html' %}
+        {% endif %}
+    {% endblock %}
+
+    {% for message in messages %}
+    <div class="px-3 py-1 message-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/mdb.min.js' %}"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+
+    <script>
+        $('input, select, textarea').addClass('form-control')
+        $('.canAbort').onclick((e) => {
+            e.preventDefault();
+            return confirm("Etes vous sûr de vouloir continuer ?")
+        })
+    </script>
+
+    {% block js %}
+
+    {% endblock %}
+</body>
+</html>

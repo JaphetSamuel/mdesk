@@ -1,0 +1,83 @@
+{% extends 'caisse/home.html' %}
+
+
+{% block home_content %}
+<form action="" method="post">
+{% csrf_token %}
+<div class="jumbotron rounded">
+    <h3>Modifier un Client</h3>
+    <hr>
+
+        <div class="w-50">
+            {% for field in form %}
+            <div class="md-form md-outline">
+                <label for="">{{ field.label }}</label>
+                {{ field }}
+                <small class="red-text">{{ field.error }}</small>
+            </div>
+            {% endfor %}
+        </div>
+
+</div>
+
+<div id="commande_formset" class="jumbotron rounded">
+    <h3>Ajouter une commande</h3>
+    <hr>
+    {% for form in commande_formset %}
+    <div class="d-flex w-75 justify-content-between commande-form-widget">
+
+        {{ form.as_p }}
+
+    </div>
+    {% endfor %}
+    <div class="">
+        {{ commande_formset.management_form }}
+    </div>
+</div>
+
+<div id="commande_formset" class="jumbotron rounded">
+    <h3>Ajouter une avance</h3>
+    <hr>
+    {% for form in avance_formset %}
+    <div class="d-flex w-75 justify-content-between avance-form-widget">
+        {{ form.as_p }}
+    </div>
+    {% endfor %}
+    <div class="">
+        {{ avance_formset.management_form }}
+    </div>
+</div>
+
+<div>
+    <div class="text-right">
+        <a  href="{% url 'caisse:client_details' pk=object.pk   %}" class="btn btn-sm btn-white">
+            <span class="fa"></span>&nbsp;<span>Voir le reçu</span>
+        </a>
+        <button type="submit" class="btn btn-sm btn-blue">
+            Modifier
+        </button>
+    </div>
+</div>
+
+</form>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        $(function(){
+            $('.commande-form-widget').formset({
+                prefix: "{{ commande_formset.prefix }}",
+                addText: "Ajouter une commande",
+                deleteText: "supprimer",
+            });
+            $('.avance-form-widget').formset({
+                prefix: "{{ avance_formset.prefix }}",
+                deleteText: "supprimer",
+                addText: "Ajouter une avance"
+            })
+        })
+
+    </script>
+{% endblock %}
+

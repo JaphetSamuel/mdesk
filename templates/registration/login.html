@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-md-4 col-12 offset-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center">Authentification</h5>
+                    <hr>
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        <span>{{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="md-form md-outline">
+                            <label for="">{{ field.label }}</label>
+                            {{ field }}
+                            <small class="red-text">{{ field.errors }}</small>
+                        </div>
+                        {% endfor %}
+                        <div class="float-right">
+                            <small><a href="">Mot de passe oublié ?</a></small>
+                        </div>
+                        <div class="pt-3">
+                            <button class="btn btn-sm btn-blue" type="submit">Se connecter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

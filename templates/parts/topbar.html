@@ -1,0 +1,14 @@
+<div class="p-5 blue white-text font-weight-bold">
+    <div class="row">
+        <div class="col-4">
+            <h3>Logo</h3>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-4">
+            <ul class="nav">
+                <li class="nav-item"><a href="" class="nav-link white-text">{{ request.user.username|upper }},</a></li>
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link white-text">Se deconnecter</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

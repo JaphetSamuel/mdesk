@@ -1,0 +1,24 @@
+{% extends 'caisse/home.html' %}
+
+
+{% block home_content %}
+<div class="jumbotron rounded">
+    <h3>Ajouter un Client</h3>
+    <hr>
+    <form action="" class="w-50" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="md-form md-outline">
+            <label for="">{{ field.label }}</label>
+            {{ field }}
+            <small class="red-text">{{ field.error }}</small>
+        </div>
+        {% endfor %}
+        <div class="text-right">
+            <button type="submit" class="btn btn-sm btn-blue">
+                Ajouter
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
